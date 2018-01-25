@@ -1,3 +1,3 @@
 # ELSpring2018
-This is a template for Spring 2018 Embedded Linux class
+This is the forked project by N03020272, Joe Adamczyk
 
