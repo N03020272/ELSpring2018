@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<!--Joe Adamczyk
+	CPS342 Embedded Linux
+	Pi Temperature Sensor Interface Assignment
+	-->
+	<head>
+		<title>Raspberry Pi Dashboard</title>
+		<link rel="stylesheet" type="text/css" href="\static\stylesheet.css">
+		<link rel="stylesheet" href="\static\w3.css">
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script>
+		function chartData() {
+			var collection = {{ tempReadings|tojson|safe }};
+			var x;
+			var points = [];
+			//var obj = JSON.parse(points);
+			for(x in collection)
+					{
+						points.push({x: new Date(collection[x][0], collection[x][1] - 1, collection[x][2], collection[x][3], collection[x][4], collection[x][5]), y : collection[x][6]});
+					}
+			//points = JSON.stringify(obj);
+			var chart = new CanvasJS.Chart("chartContainer", {
+				animationEnabled: true,
+				theme: "light2",
+				title:{
+					text: "Temperature vs. Time"
+				},
+				axisX:{
+					valueFormatString: "DD MMM YY HH MM"
+				},
+				axisY:{
+					includeZero: false
+				},
+				data: [{        
+					type: "line", 
+					xValueFormatString: "DD MMM YY HH MM",					
+					dataPoints: points
+				}]
+			});
+			chart.render();
+
+		}
+	</script>
+	<script>
+		  $( function() {
+			$( "#dateStart" ).datepicker();
+		  } );
+	</script>
+	<script>
+		  $( function() {
+			$( "#dateEnd" ).datepicker();
+		  } );
+	</script>
+	
+	</head>
+	<body>
+		<div class="topEncapsulate">
+			<div class="companyLogo">
+				<h1 style="font-family:Arial; color:black">Raspberry Pi Control Dashboard</h1>
+				<img src="#" alt="" />
+			</div>
+		
+		
+			<div class="topNav">
+				<ul>
+					<li>
+						<button>Home</button>
+					</li>
+					<li>
+						<button onclick="chartData()">Temperature</button>
+					</li>
+					<li>
+						<button>GPIO Control</button>
+					</li>
+					<li>
+						<button>System Status</button>
+					</li>
+					<li>
+						<button>About</button>
+					</li>
+				</ul>
+			</div>
+			
+		</div>
+
+		<div class="actionContent" style="overflow:scroll;  height: 100%; overflow-y: scroll;">
+			<h1 id="title1">Current Date & Time: {{ time }}<h1>
+		
+			<p id="data1">Home Page: Temperature Controls on this page. Rest of dashboard app in development. Choose a date range to view temp data from:</p>
+			<div style="position:relative; ">
+				<p style="display:inline">Date Start: <input type="text" id="dateStart"></p>
+				<script>
+					$("#dateStart").focus(function() {
+						<!--$("#dateEnd").val("in");-->
+						
+					}).blur(function() {
+						<!--$("#dateEnd").val("out");-->
+						
+					});
+				</script>
+				<p style="display:inline">Date End:  <input type="text" id="dateEnd"></p>
+				<script>
+					$("#dateEnd").focus(function() {
+						console.log('test');
+					}).blur(function() {
+						if(($("#dateStart").val() == ""))
+						{
+							<!--$("#dateStart").val("test");-->
+						}
+						else
+						{ 
+							<!--$("#dateStart").val("out");-->
+						}
+					});
+				</script>
+			</div>
+			<div id="chartContainer" style="height: 300px; width: 100%;"></div>
+			<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+		</div>
+	</body>
+</html>
+

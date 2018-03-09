@@ -1,0 +1,112 @@
+
+html
+{
+	z-index:0;
+	width:100%;
+	height:100%;
+	background: linear-gradient(#008C4A, white);
+	overflow:hidden;
+}
+
+body
+{
+	z-index:0;
+	padding-left:15%;
+	padding-right:15%;
+}
+
+#cupPic
+{
+	position:absolute;
+	bottom:1px;
+	left:1px;
+}
+
+#companyLogo h1
+{
+	font-family:Oswald;
+}
+
+.topEncapsulate
+{
+	padding: 20px 20px 20px 20px;
+	border-radius: 0px 0px 12px 12px;
+	background-color:rgba(255, 255, 255, 0.7);
+}
+
+.topNav
+{
+	font-family:Arial;
+	color:black; 	
+	position:relative;
+	display:block;
+	width:100%;
+	margin:auto;
+	 
+}
+
+.topNav ul
+{
+	position:relative;
+	width:100%;
+	list-style-type:none;
+	text-decoration:none;
+	padding-left:0px;
+	padding-right:0px;
+	font-family:Dosis;
+	font-weight:bold;
+
+}
+
+.topNav ul li 
+{
+	display:inline-block;
+	width:19%;
+	text-align:center;
+	border-radius: 4px;
+	margin-right:0px;
+	margin-left:0px;
+	background:linear-gradient(#D6264F,white);
+	font-family:Courier New;
+	font-size:large;
+}
+
+.topNav ul li:hover
+{
+	color:white;
+	background:black;
+}
+
+.topNav ul li button:hover
+{
+	background: black;
+	width:100%;	
+	border: none !important;
+	color:white;
+	display:block;
+	text-decoration:none;
+}
+
+.topNav ul li button
+{
+	background: transparent;
+	width:100%;	
+	border-radius: 4px;
+	border: none !important;
+	display:block;
+	text-decoration:none;
+}
+
+.actionContent
+{
+	position:relative;
+	background:black;
+	color:white;
+	margin: 20px 100px 100px 100px;
+	overflow:scroll;
+}
+
+.actionContent p
+{
+	font-size: 20px;
+}
