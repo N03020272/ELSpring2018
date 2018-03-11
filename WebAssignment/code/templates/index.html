@@ -44,9 +44,63 @@
 		}
 	</script>
 	<script>
+		function postData(year1, year2, month1, month2, day1, day2) {
+			$.ajax({
+				type: "POST",
+				//url: "/queryDb.py " + year + " " + month + " " + day,
+				url: "/temp/" + year1 + "/" + year2 + "/" + month1 + "/" + month2 + "/" + day1 + "/" + day2,
+				//data: { param: input },
+				//success: callbackFunc
+			});
+			//tempReadings = 
+		}
+	</script>
+	<script>
 		  $( function() {
-			$( "#dateStart" ).datepicker();
+			$( "#dateStart" ).datepicker({onClose: function(){
+																if(($("#dateEnd").val() == ""))
+																{
+																	console.log("not going yet");
+																}
+																else
+																{ 							
+																	var text = $( "#dateStart" ).datepicker("getDate");
+																	month1 = '' + (text.getMonth() + 1),
+																	day1 = '' + text.getDate(),
+																	year1 = text.getFullYear();
+																	month2 = '' + (text.getMonth() + 1),
+																	day2 = '' + text.getDate(),
+																	year2 = text.getFullYear();
+																	console.log("" + year1 + " " + month1 + " " + day1);
+																	postData(year1, year2, month1, month2, day1, day2);	
+																	console.log("data went");
+																	//postData("/");
+																	location.reload(true);
+																	console.log({{ tempReadings|tojson|safe }});
+																	chartData()
+																}
+																
+																console.log(text);
+															}
+										});
 		  } );
+		  
+		  function postData(year1, year2, month1, month2, day1, day2) {
+			$.ajax({
+				type: "GET",
+				//url: "/queryDb.py " + year + " " + month + " " + day,
+				url: "/temp/" + year1 + "/" + year2 + "/" + month1 + "/" + month2 + "/" + day1 + "/" + day2,
+				//data: { param: input },
+				//success: callbackFunc
+			});
+			//tempReadings = 
+		}
+		
+		function reloadPage(){
+			$.ajax({
+				type: "GET",
+				url: "/"});
+		}
 	</script>
 	<script>
 		  $( function() {
@@ -69,7 +123,7 @@
 						<button>Home</button>
 					</li>
 					<li>
-						<button onclick="chartData()">Temperature</button>
+						<button>Temperature</button>
 					</li>
 					<li>
 						<button>GPIO Control</button>
@@ -97,6 +151,12 @@
 						
 					}).blur(function() {
 						<!--$("#dateEnd").val("out");-->
+						if(($("#dateEnd").val() == ""))
+						{
+						}
+						else
+						{ 	
+						}
 						
 					});
 				</script>
