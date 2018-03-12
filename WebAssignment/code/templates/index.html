@@ -11,8 +11,74 @@
 		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script>
-		function chartData() {
-			var collection = {{ tempReadings|tojson|safe }};
+		  $( function() {
+			$( "#dateStart" ).datepicker({onClose: function(){
+																if(($("#dateEnd").val() == ""))
+																{
+																	console.log("not going yet");
+																}
+																else
+																{ 							
+																	var StartDate = $( "#dateStart" ).datepicker("getDate");
+																	var EndDate = $( "#dateEnd" ).datepicker("getDate");
+																	month1 = '' + (StartDate.getMonth() + 1),
+																	day1 = '' + StartDate.getDate(),
+																	year1 = StartDate.getFullYear();
+																	month2 = '' + (EndDate.getMonth() + 1),
+																	day2 = '' + EndDate.getDate(),
+																	year2 = EndDate.getFullYear();
+																	console.log("" + year1 + " " + month1 + " " + day1);
+																	//var recieved = postData(year1, year2, month1, month2, day1, day2);	
+																	console.log("data went");
+																	//var recieved = "";
+																	var recieved = $.ajax({
+																		type: "GET",
+																		//url: "/queryDb.py " + year + " " + month + " " + day,
+																		url: "/temp/" + year1 + "/" + year2 + "/" + month1 + "/" + month2 + "/" + day1 + "/" + day2,
+																		//data: { param: input },
+																		dataType : 'json',
+																		success: function(data) {
+																			//json.getJSONObject(JSON.stringify(data)).getString("data")
+																			//console.log(JSON.stringify(data["data"]));
+																			//recieved = data;
+																			chartData(data["data"]);
+																		}
+																		
+																		
+																	});
+																	//var recieved = data;
+																	console.log(recieved);
+																	//recieved = JSON.stringify(recieved[responseText]);
+																	//recieved = JSON.stringify(recieved.responseText);
+																	//postData("/");
+																	//location.reload(true);
+																	//console.log(recieved);
+																	//chartData(recieved)
+																}
+																console.log(text);
+															}
+										});
+		  } );
+		  
+		  function postData(year1, year2, month1, month2, day1, day2) {
+			$.ajax({
+				type: "GET",
+				//url: "/queryDb.py " + year + " " + month + " " + day,
+				url: "/temp/" + year1 + "/" + year2 + "/" + month1 + "/" + month2 + "/" + day1 + "/" + day2,
+				//data: { param: input },
+				//success: callbackFunc
+			});
+			//tempReadings = 
+		}
+		
+		function reloadPage(){
+			$.ajax({
+				type: "GET",
+				url: "/"});
+		}
+		function chartData(recieved) {
+			//var collection = {{ tempReadings|tojson|safe }};
+			var collection = recieved;
 			var x;
 			var points = [];
 			//var obj = JSON.parse(points);
@@ -42,72 +108,57 @@
 			chart.render();
 
 		}
-	</script>
-	<script>
-		function postData(year1, year2, month1, month2, day1, day2) {
-			$.ajax({
-				type: "POST",
-				//url: "/queryDb.py " + year + " " + month + " " + day,
-				url: "/temp/" + year1 + "/" + year2 + "/" + month1 + "/" + month2 + "/" + day1 + "/" + day2,
-				//data: { param: input },
-				//success: callbackFunc
-			});
-			//tempReadings = 
-		}
-	</script>
-	<script>
-		  $( function() {
-			$( "#dateStart" ).datepicker({onClose: function(){
+		
+		$( function() {
+			$( "#dateEnd" ).datepicker({onClose: function(){
 																if(($("#dateEnd").val() == ""))
 																{
 																	console.log("not going yet");
 																}
 																else
 																{ 							
-																	var text = $( "#dateStart" ).datepicker("getDate");
-																	month1 = '' + (text.getMonth() + 1),
-																	day1 = '' + text.getDate(),
-																	year1 = text.getFullYear();
-																	month2 = '' + (text.getMonth() + 1),
-																	day2 = '' + text.getDate(),
-																	year2 = text.getFullYear();
+																	var StartDate = $( "#dateStart" ).datepicker("getDate");
+																	var EndDate = $( "#dateEnd" ).datepicker("getDate");
+																	month1 = '' + (StartDate.getMonth() + 1),
+																	day1 = '' + StartDate.getDate(),
+																	year1 = StartDate.getFullYear();
+																	month2 = '' + (EndDate.getMonth() + 1),
+																	day2 = '' + EndDate.getDate(),
+																	year2 = EndDate.getFullYear();
 																	console.log("" + year1 + " " + month1 + " " + day1);
-																	postData(year1, year2, month1, month2, day1, day2);	
+																	//var recieved = postData(year1, year2, month1, month2, day1, day2);	
 																	console.log("data went");
+																	//var recieved = "";
+																	var recieved = $.ajax({
+																		type: "GET",
+																		//url: "/queryDb.py " + year + " " + month + " " + day,
+																		url: "/temp/" + year1 + "/" + year2 + "/" + month1 + "/" + month2 + "/" + day1 + "/" + day2,
+																		//data: { param: input },
+																		dataType : 'json',
+																		success: function(data) {
+																			//json.getJSONObject(JSON.stringify(data)).getString("data")
+																			//console.log(JSON.stringify(data["data"]));
+																			//recieved = data;
+																			chartData(data["data"]);
+																		}
+																		
+																		
+																	});
+																	//var recieved = data;
+																	console.log(recieved);
+																	//recieved = JSON.stringify(recieved[responseText]);
+																	//recieved = JSON.stringify(recieved.responseText);
 																	//postData("/");
-																	location.reload(true);
-																	console.log({{ tempReadings|tojson|safe }});
-																	chartData()
+																	//location.reload(true);
+																	//console.log(recieved);
+																	//chartData(recieved)
 																}
-																
 																console.log(text);
 															}
 										});
 		  } );
-		  
-		  function postData(year1, year2, month1, month2, day1, day2) {
-			$.ajax({
-				type: "GET",
-				//url: "/queryDb.py " + year + " " + month + " " + day,
-				url: "/temp/" + year1 + "/" + year2 + "/" + month1 + "/" + month2 + "/" + day1 + "/" + day2,
-				//data: { param: input },
-				//success: callbackFunc
-			});
-			//tempReadings = 
-		}
-		
-		function reloadPage(){
-			$.ajax({
-				type: "GET",
-				url: "/"});
-		}
 	</script>
-	<script>
-		  $( function() {
-			$( "#dateEnd" ).datepicker();
-		  } );
-	</script>
-	
+
 	</head>
 	<body>
 		<div class="topEncapsulate">

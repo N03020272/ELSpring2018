@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+from flask.json import jsonify
 import datetime
 import sqlite3 as mydb
 app = Flask(__name__)
@@ -34,14 +35,17 @@ def index():
 	return render_template('index.html', tempReadings = cursor.fetchall())
 	
 	
-@app.route("/temp/<year1>/<year2>/<month1>/<month2>/<day1>/<day2>")
+@app.route("/temp/<year1>/<year2>/<month1>/<month2>/<day1>/<day2>", methods=['GET'])
 def selectRange(year1, year2, month1, month2, day1, day2):
 	conn = mydb.connect('tempReadings.db')
 	c = conn.cursor()
 	dateParams = [year1 , year2 , month1 , month2 , day1 , day2]
 	cursor = c.execute('SELECT * FROM tempReadings WHERE year BETWEEN ? AND ? AND month BETWEEN ? AND ? AND day BETWEEN ? AND ?', dateParams)
-	print dateParams
-	return render_template('index.html', tempReadings = cursor.fetchall())
+	tempReadings = cursor.fetchall()
+	print tempReadings
+	#return jsonify(tempReadings)
+	return jsonify(data = tempReadings)
+	#return render_template('index.html', tempReadings = cursor.fetchall())
 	
 @app.route("/temperature")
 def temperature():
