@@ -1,0 +1,24 @@
+Embedded Linux CPS342
+Joe Adamczyk, Connor Bing, Joseph Echeverria
+
+Our project, which is a temperature and humidity sensor system, is to be completed by loosely utilizing the guidelines and proposed schedule of action detailed in this write up. The system consists of the following main components: four boxes that contain Raspberry Pi’s and a temperature sensor each, network framework loaded on to each of these Pi’s to handle data transfer to a main location, and a webpage that will process this data and present it in a user friendly and meaningful manner. 
+
+The three components will be taken one each by the members of the team. Joe Adamczyk will be responsible for designing and interfacing the physical parts of the system, Jonathan Bing will be in charge of writing the code to interface with the network, and Joseph Echeverria will design the website and process the data. Follows is a more detailed breakdown of these tasks. The code will be managed using GitHub online Git code tracking system.
+PHYSICAL AND LOW-LEVEL PROGRAMMING:
+The tasks that will need to be completed for the low-level programming and hardware design include:
+-	Sensor driver, datasheet specifies one-wire protocol signaling diagram
+-	Enclosure for the device. Will use Solidworks CAD software to design case, using 3d model of Pi and other components to design the case.
+-	Design of any auxiliary electronics that may be needed in each box (power regulation, battery backup, etc.)
+BACK END SYSTEM PROGRAMMING:
+Need to figure out how to get the sensors to upload their data to Google's "sheets" program so that we can take that data and put it onto the site where it needs to be. Need to make sure all the sensors are working and generating realistic outputs. Once all the Pi's are uploading correctly
+the next step is seamlessly transferring the data into user friendly table. A big piece of this puzzle is making it so that we can add Pi’s to the collection easily and quickly without having to do much more than copying the code from the first Pi’s (in other words, making one unit repeatable across n number of units).
+
+FRONT END AND DATA PROCESSING:
+
+Design website which will act as an interface to install (add) more devices and will return a visual display of the data received from each device. So far, we’ve been using Angular 4 and Node.js to design the site. The website will allow users to see the data of each device (temperature and humidity) in a table. The user is will be also able to change how the data is represented by selecting the type of graph she wants to see using Google Charts. We will also try to use Google’s Heat-map tool on Google Maps to possibly display the heat-map of a floor on a building (however, this will be given low priority). Lastly, users must be able to add devices through an installation process so that the user could use as many devices as they seem fit. 
+
+So far, we have completed the following:
+-	Interfaced sensors
+-	Prototype of website structure
+-	Wrote code to parse sensor data
+
