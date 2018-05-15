@@ -10,6 +10,7 @@
  
  -To write python code to interface with the google sheet api using several downloaded librarires and a JSON, Service Account Key.
   
+ __Work Division__
  
   Joe Adamczyk: 33.3% ---> Sensor Driver and 3D printing
   
@@ -22,17 +23,17 @@
  
  __Achievements:__
   
-  We made 3d printed boxes for the units
+  -Made 3d printed boxes for the units
   
-  We made a modular and extendable temperature sensor system
+  -Made a modular and extendable temperature sensor system
   
-  We made a google sheet-based database system for logging data
+  -Made a google sheet-based database system for logging data
   
-  We made scripts to log and send data to the sheets
+  -Made scripts to log and send data to the sheets
   
-  We made a web interface for displaying the data
+  -Made a web interface for displaying the data
   
-  We made a driver for the one-wire serial temperature and humidity sensor
+  -Made a driver for the one-wire serial temperature and humidity sensor
  
  
  __Instructions:__
