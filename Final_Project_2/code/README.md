@@ -1,6 +1,6 @@
 # FINAL PROJECT README AND INSTRUCTIONS: 
  
- Goals:
+ __Goals:__
  
   -To make a modular, extendable, automatic temperature and humidity data logging device. 
  
@@ -10,8 +10,6 @@
  
  -To write python code to interface with the google sheet api using several downloaded librarires and a JSON, Service Account Key.
   
-  
- 
  
   Joe Adamczyk: 33.3% ---> Sensor Driver and 3D printing
   
@@ -21,10 +19,8 @@
   
   Chikkaral Easwarren: .01% :)
   
-  
-  
-  
- Achievements;
+ 
+ __Achievements:__
   
   We made 3d printed boxes for the units
   
@@ -39,9 +35,7 @@
   We made a driver for the one-wire serial temperature and humidity sensor
  
  
- 
- 
- Instructions:
+ __Instructions:__
  
  1. Download the necessary code from the repository 
  
