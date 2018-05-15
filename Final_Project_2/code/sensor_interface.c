@@ -8,17 +8,17 @@ int main()
 
 	wiringPiSetup();
 	pinMode(0, OUTPUT);
-	//printf("hi\n");
 	digitalWrite(0, LOW);
-	delayMicroseconds(2000);
-	digitalWrite(0, LOW);
-	delayMicroseconds(40);
-	//printf("what?\n");
+	delayMicroseconds(1000);
+	//digitalWrite(0, HIGH);
 	pinMode(0, INPUT);
+	delayMicroseconds(40);
+	//pinMode(0, INPUT);
 	while(digitalRead(0));
 	//The sensor activation is done
 
 	int useconds = 0;
+	int timeout = 0;
 	int preamble_1 = 0;
 	int preamble_2 = 0;
 	int outbit[40];
@@ -30,8 +30,8 @@ int main()
 	int CheckSum[8];
 	int commitPlease;	
 
-	if(!digitalRead(0))
-	{
+	//if(!digitalRead(0))
+	//{
 		while(useconds < 70)		
 		{
 			delayMicroseconds(1);
@@ -43,10 +43,18 @@ int main()
 
 		//wait until the bus goes high to sense
 		//next cycle of preamble
-		while(!digitalRead(0));
-		//{
-		//	printf("2 do we get stuck in here?");
-		//}
+		while(!digitalRead(0))
+		{
+			printf("here");
+
+			timeout++;
+			if(timeout >= 200000)
+			{
+				timeout = 0;
+				exit(1);
+			}
+		}
+		 
 
 		//wait at least 70us for bus to be high
 		while(useconds < 70)
@@ -60,10 +68,16 @@ int main()
 
 		//wait until the bus goes low to indicate
 		//the start of the data transmission
-		while(digitalRead(0));
-		//{
-		//	printf("3 do we get stuck in here?");
-		//}
+		while(digitalRead(0))
+		{
+			timeout++;
+			if(timeout >= 200000)
+			{
+				timeout = 0;
+				exit(1);
+			}
+		}
+		
 
 		if(preamble_1 & preamble_2)	
 			preamble_finished = 1;
@@ -76,21 +90,26 @@ int main()
 				
 				//wait until the bus goes high to sense
 				//next cycle of transmission
-				while(!digitalRead(0));
+				while(!digitalRead(0))
+				{
+					timeout++;
+					if(timeout >= 200000)
+					{
+						timeout = 0;
+						exit(1);
+					}
+				}
 			
 				while(digitalRead(0))
 				{
-					//printf("heeeeh");
 					useconds++;
 					delayMicroseconds(1);
-					//printf("do we get stuck in here?");
 					if(useconds > 50)
 					{
 						outbit[i] = 1;
 						oneFlag = 1;
 						if(i == 39)
 						{
-							//printf("yoyoyoyoyo");
 							break;
 						}
 					}
@@ -101,17 +120,17 @@ int main()
 				}
 				oneFlag = 0;
 				useconds = 0;
-				//if we had a 1 condition, we need to wait 
-				//until the bus goes low again
-				//while(digitalRead(0) && outbit[i] == 1);	
+					
 			}
 		}
-	}
+	//}
 	
+	//printf("here");
 	i = 0;
 	int RH_index = 0;
 	int T_index = 0;
 	int Chk_index = 0;
+	
 	while(i < 40)
 	{
 		if(i < 16)
@@ -132,6 +151,7 @@ int main()
 		//printf("%d", outbit[i]);
 		i++;
 	}
+
 	int j;
 	int RH_decimal = 0;
 	int Temp_decimal = 0;
@@ -144,7 +164,8 @@ int main()
 	printf("\n");
 	for(i = 0, j = 15; i < 16; i++, j--)
 	{
-		Temp_decimal = Temp_decimal + (T_value[i] << j);
+		Temp_decimal = Temp_decimal + (T_value[i] << (j-1));
+		//printf("%d\n", Temp_decimal);
 		printf("%d", T_value[i]);
 	}
 	printf("\n%d", Temp_decimal/10);
@@ -157,13 +178,9 @@ int main()
 		printf("%d", outbit[i]);
 	
 	FILE *fp;
-	//int temp[2];
-	//sprintf(temp, "%d", Temp_decimal);
-	//int rh[2];
-	//sprintf(rh, "%d", RH_decimal);
 	fp=fopen("readings.txt","w");
 	printf("\nEnter data to be stored in to the file:");
-	//while((ch=getchar())!=EOF)
+	
 	fprintf(fp, "%d", Temp_decimal/10);
 	fprintf(fp, "\n");
 	fprintf(fp, "%d", RH_decimal/10);
