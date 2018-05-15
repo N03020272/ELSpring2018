@@ -1,0 +1,24 @@
+.left{
+    float: left;
+    width: 30%;
+    height: 40em;
+    background-color: lightgray;
+    position: fixed;
+    
+  
+  }
+  .right{
+    float: right;
+    width: 70%;
+    height: 40em;
+    background-color: white;
+  }
+  
+  .form-group{
+    width: 75%;
+    padding: 50px 30px;
+}
+.form-control{
+    min-width: 108px;
+    max-width: 198px;
+}

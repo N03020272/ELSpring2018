@@ -1,0 +1,41 @@
+<script src="./install.component.js"></script>
+<div>
+  <h3>Installing New Device</h3>
+  <h4>Step 1</h4>
+  <p>
+      Sign in to <a href="https://docs.google.com/spreadsheets/" target="_blank">Google Sheets</a> using <br>
+      Email : SensorPiMail@gmail.com<br>
+      Password : blackbox5<br>
+      Select the new sheet you want to install<br>
+      <img src="../assets/img/step1/install1.png" alt="Intruction 1"> <br>
+      
+      Copy the Google Sheet's GID Number  <br>
+
+      <img src="../assets/img/step1/install2.png" alt="Intruction 5"> <br>
+      Paste the GID# to the slot below and press submit<br>
+</p>
+      <form>
+          <div class="form-group">
+            <div>
+            <input type="text" class="form-control" id="gidNumber"  [(ngModel)]="gidNumber" placeholder="GID Number">
+          </div> 
+          <div>          
+              <button type="submit" class="btn btn-primary" (click) = "save()">Submit</button>
+            </div>
+          </div>
+        </form>
+  
+  
+  <h4>Step 2</h4>
+  <p>
+    Download code repository
+    
+  </p>
+  <h4>Step 3</h4>
+  <p>
+    Run Setup.py python script on the terminal
+  </p>
+  
+  
+</div>
+

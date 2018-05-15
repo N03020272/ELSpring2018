@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>MyApp</title>
+        <base href="/">
+      
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript" src="./app/install/install.component.js"></script>
+        
+       
+        <script type="text/javascript">
+
+          google.charts.load('current', {packages: ['corechart','controls']});
+          google.charts.setOnLoadCallback(drawChart);
+
+          
+          
+          function drawChart() {
+            var queryString = encodeURIComponent('SELECT A, B, C, D');
+            var sheetID = '15hun9qPf5Y2q45RpiK-xPwpPU7Xjw8rBdFX3Az4hhTU';
+            
+            var gidNum = 0;
+        
+            var query = new google.visualization.Query(
+                'https://docs.google.com/spreadsheets/d/'+sheetID+'/gviz/tq?gid='+ gidNum +'&headers=1&tq=' + queryString);
+            query.send(handleSampleDataQueryResponse);
+          }
+        
+          function handleSampleDataQueryResponse(response) {
+            if (response.isError()) {
+              alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+              return;
+            }
+        
+            var data = response.getDataTable();
+            var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+            chart.draw(data, { height: 400 });
+            var data2 = response.getDataTable();
+            var chart2 = new google.visualization.TableChart(document.getElementById('chart2_div'));
+            chart2.draw(data, {showRowNumber: true, height: 400});
+
+          }
+        </script>
+        
+        
+        
+        
+      
+      </head>
+      <body>
+          <app-root></app-root>
+
+      </body>
+</html>
