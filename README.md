@@ -18,3 +18,4 @@ This repository documents my classwork and projects done for **_CPS342_**.
 2. **Class Start Date:** Jan 22, 2018
 3. **Class End Date:** May 8, 2018
 
+# FINAL PROJECT README AND INSTRUCTIONS
