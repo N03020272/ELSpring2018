@@ -10,6 +10,8 @@
  
  -To write python code to interface with the google sheet api using several downloaded librarires and a JSON, Service Account Key.
   
+  
+ 
  
   Joe Adamczyk: 33.3% ---> Sensor Driver and 3D printing
   
@@ -18,6 +20,8 @@
   Joseph Echeverria: 33.3% --> Web interface
   
   Chikkaral Easwarren: .01% :)
+  
+  
   
   
  Achievements;
@@ -33,6 +37,8 @@
   We made a web interface for displaying the data
   
   We made a driver for the one-wire serial temperature and humidity sensor
+ 
+ 
  
  
  Instructions:
